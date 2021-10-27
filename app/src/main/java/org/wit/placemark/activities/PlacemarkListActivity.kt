@@ -1,5 +1,6 @@
 package org.wit.placemark.activities
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewGroup
+import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,13 +20,8 @@ import org.wit.placemark.models.PlacemarkModel
 
 class PlacemarkListActivity : AppCompatActivity() {
 
-
     lateinit var app: MainApp
     private lateinit var binding: ActivityPlacemarkList2Binding
-
-
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +29,6 @@ class PlacemarkListActivity : AppCompatActivity() {
         setContentView(binding.root)
         binding.toolbar.title = title
         setSupportActionBar(binding.toolbar)
-
 
         app = application as MainApp
 
@@ -44,7 +40,15 @@ class PlacemarkListActivity : AppCompatActivity() {
        menuInflater.inflate(R.menu.menu_main, menu)
         return super.onCreateOptionsMenu(menu)
        }
-
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.item_add -> {
+                val launcherIntent = Intent(this, PlacemarkActivity::class.java)
+                //ActivityCompat.startActivityForResult(launcherIntent,0)
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
     }
 
     class PlacemarkAdapter constructor(private var placemarks: List<PlacemarkModel>) :
@@ -62,6 +66,7 @@ class PlacemarkListActivity : AppCompatActivity() {
             holder.bind(placemark)
         }
 
+
         override fun getItemCount(): Int = placemarks.size
 
         class MainHolder(private val binding : CardPlacemarkBinding) :
@@ -72,16 +77,7 @@ class PlacemarkListActivity : AppCompatActivity() {
                //binding.description.text = placemark.description
             }
         }
-        override fun onOptionsItemSelected(item: MenuItem): Boolean {
-            when (item.itemId) {
-                R.id.item_add -> {
-                    val launcherIntent = Intent(this, PlacemarkActivity::class.java)
-                    startActivityForResult(launcherIntent,0)
-                }
-            }
-            return super.onOptionsItemSelected(item)
-        }
-        
+
     }
 
 
