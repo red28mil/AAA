@@ -3,9 +3,9 @@ package org.wit.placemark.models
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
-@parcelize
+@Parcelize
 data class PlacemarkModel(
-   //var id: Long = 0,
+    var id: Long = 0,
     var title: String = "",
     var description: String = "") : Parcelable {
 
