@@ -7,6 +7,7 @@ import android.view.MenuItem
 import com.google.android.material.snackbar.Snackbar
 import org.wit.placemark.R
 import org.wit.placemark.databinding.ActivityPlacemarkBinding
+import org.wit.placemark.databinding.CardPlacemarkBinding
 import org.wit.placemark.main.MainApp
 import org.wit.placemark.models.PlacemarkModel
 import timber.log.Timber
@@ -31,19 +32,18 @@ class PlacemarkActivity : AppCompatActivity() {
         app = application as MainApp
         i("Placemark Activity started...")
 
-
+        if (intent.hasExtra("placemark_edit")) {
+            placemark = intent.extras?.getParcelable("placemark_edit")!!
+            binding.placemarkTitle.setText(placemark.title)
+            //binding.description.setText(placemark.description)
+        }
 
         binding.btnAdd.setOnClickListener() {
             placemark.title = binding.placemarkTitle.text.toString()
-            //placemark.description = binding.description.text.toString()
+           // placemark.description = binding.description.text.toString()
             if (placemark.title.isNotEmpty()) {
                 //app.placemarks.add(placemark.copy())
                 app.placemarks.create(placemark.copy())
-                i("add Button Pressed: ${placemark}")
-                for (i in app.placemarks.indices) {
-                    i("Placemark[$i]:${this.app.placemarks[i]}")
-                }
-
                 setResult(RESULT_OK)
                 finish()
             } else {

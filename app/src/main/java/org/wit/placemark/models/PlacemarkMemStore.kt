@@ -1,5 +1,9 @@
 package org.wit.placemark.models
 
+
+
+import timber.log.Timber.i
+
 class PlacemarkMemStore : PlacemarkStore {
 
     val placemarks = ArrayList<PlacemarkModel>()
@@ -8,7 +12,15 @@ class PlacemarkMemStore : PlacemarkStore {
         return placemarks
     }
 
+   // override fun create(placemark: PlacemarkModel) {
+  //      placemarks.add(placemark)
+  //  }
     override fun create(placemark: PlacemarkModel) {
         placemarks.add(placemark)
+        logAll()
+    }
+
+    fun logAll() {
+        placemarks.forEach{ i("${it}") }
     }
 }

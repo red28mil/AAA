@@ -1,27 +1,23 @@
 package org.wit.placemark.activities
 
-import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import org.wit.placemark.R
-import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
-import android.view.ViewGroup
-import androidx.core.app.ActivityCompat
-import androidx.core.app.ActivityCompat.startActivityForResult
+import org.wit.placemark.R
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import org.wit.placemark.databinding.ActivityPlacemarkList2Binding
-import org.wit.placemark.databinding.CardPlacemarkBinding
 import org.wit.placemark.main.MainApp
+import org.wit.placemark.models.PlacemarkAdapter
+import org.wit.placemark.models.PlacemarkListener
 import org.wit.placemark.models.PlacemarkModel
 
-class PlacemarkListActivity : AppCompatActivity() {
+class PlacemarkListActivity : AppCompatActivity(), PlacemarkListener {
 
     lateinit var app: MainApp
     private lateinit var binding: ActivityPlacemarkList2Binding
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +31,7 @@ class PlacemarkListActivity : AppCompatActivity() {
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
         //binding.recyclerView.adapter = PlacemarkAdapter(app.placemarks)
-        binding.recyclerView.adapter = PlacemarkAdapter(app.placemarks.findAll())
+        binding.recyclerView.adapter = PlacemarkAdapter(app.placemarks.findAll(),this)
      }
         override fun onCreateOptionsMenu(menu: Menu): Boolean {
        menuInflater.inflate(R.menu.menu_main, menu)
@@ -45,40 +41,47 @@ class PlacemarkListActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.item_add -> {
                 val launcherIntent = Intent(this, PlacemarkActivity::class.java)
-                //ActivityCompat.startActivityForResult(launcherIntent,0)
+                startActivityForResult(launcherIntent,0)
             }
         }
         return super.onOptionsItemSelected(item)
     }
+
+    override fun onPlacemarkClick(placemark: PlacemarkModel) {
+        val launcherIntent = Intent(this, PlacemarkActivity::class.java)
+        launcherIntent.putExtra("placemark_edit", placemark)
+        startActivityForResult(launcherIntent,0)
     }
-
-    class PlacemarkAdapter constructor(private var placemarks: List<PlacemarkModel>) :
-        RecyclerView.Adapter<PlacemarkAdapter.MainHolder>() {
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
-            val binding = CardPlacemarkBinding
-                .inflate(LayoutInflater.from(parent.context), parent, false)
-
-            return MainHolder(binding)
-        }
-
-        override fun onBindViewHolder(holder: MainHolder, position: Int) {
-            val placemark = placemarks[holder.adapterPosition]
-            holder.bind(placemark)
-        }
+}
 
 
-        override fun getItemCount(): Int = placemarks.size
+  //  class PlacemarkAdapter constructor(private var placemarks: List<PlacemarkModel>) :
+    //    RecyclerView.Adapter<PlacemarkAdapter.MainHolder>() {
 
-        class MainHolder(private val binding : CardPlacemarkBinding) :
-            RecyclerView.ViewHolder(binding.root) {
+      //  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
+        //    val binding = CardPlacemarkBinding
+          //      .inflate(LayoutInflater.from(parent.context), parent, false)
 
-            fun bind(placemark: PlacemarkModel) {
-                binding.placemarkTitle.text = placemark.title
-               //binding.description.text = placemark.description
-            }
-        }
+            //return MainHolder(binding)
+       // }
 
-    }
+      //  override fun onBindViewHolder(holder: MainHolder, position: Int) {
+      //      val placemark = placemarks[holder.adapterPosition]
+      //      holder.bind(placemark)
+      //  }
+
+
+        //override fun getItemCount(): Int = placemarks.size
+
+       // class MainHolder(private val binding : CardPlacemarkBinding) :
+         //   RecyclerView.ViewHolder(binding.root) {
+
+           // fun bind(placemark: PlacemarkModel) {
+             //   binding.placemarkTitle.text = placemark.title
+             //  binding.description.text = placemark.description
+            //}
+        //}
+
+    //}
 
 
