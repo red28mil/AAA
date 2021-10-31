@@ -1,8 +1,13 @@
 package org.wit.placemark.models
 
-
-
 import timber.log.Timber.i
+
+
+var lastId = 0L
+
+internal fun getId(): Long {
+    return lastId++
+}
 
 class PlacemarkMemStore : PlacemarkStore {
 
@@ -16,11 +21,20 @@ class PlacemarkMemStore : PlacemarkStore {
   //      placemarks.add(placemark)
   //  }
     override fun create(placemark: PlacemarkModel) {
-        placemarks.add(placemark)
+       placemark.id = getId()
+       placemarks.add(placemark)
         logAll()
     }
+    override fun update(placemark: PlacemarkModel) {
+        var foundPlacemark: PlacemarkModel? = placemarks.find { p -> p.id == placemark.id }
+        if (foundPlacemark != null) {
+            foundPlacemark.title = placemark.title
+            foundPlacemark.description = placemark.description
+            logAll()
+        }
+    }
 
-    fun logAll() {
+    private fun logAll() {
         placemarks.forEach{ i("${it}") }
     }
 }
