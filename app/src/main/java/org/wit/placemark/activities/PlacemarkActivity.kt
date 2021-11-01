@@ -23,11 +23,19 @@ class PlacemarkActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPlacemarkBinding
     var placemark = PlacemarkModel()
     lateinit var app: MainApp
+    private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
+    val IMAGE_REQUEST = 1
+    private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         registerImagePickerCallback()
         var edit = false
+
+
 
         binding = ActivityPlacemarkBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -57,19 +65,34 @@ class PlacemarkActivity : AppCompatActivity() {
                 Snackbar
                     .make(it, "Please Enter a title", Snackbar.LENGTH_LONG)
                     .show()
-            }else{
-            if (edit) {
-                app.placemarks.update(placemark.copy())
             } else {
-                app.placemarks.create(placemark.copy())
+                if (edit) {
+                    app.placemarks.update(placemark.copy())
+                } else {
+                    app.placemarks.create(placemark.copy())
+                }
             }
-        }
             i("add Button Pressed: $placemark")
             setResult(RESULT_OK)
             finish()
         }
         binding.chooseImage.setOnClickListener {
             i("Select image")
+        }
+        binding.placemarkLocation.setOnClickListener {
+            i("Set Location Pressed")
+        }
+
+
+        fun registerMapCallback() {
+            mapIntentLauncher =
+                registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+                { i("Map Loaded") }
+
+            binding.placemarkLocation.setOnClickListener {
+                val launcherIntent = Intent(this, MapActivity::class.java)
+                mapIntentLauncher.launch(launcherIntent)
+            }
         }
     }
 
@@ -87,8 +110,6 @@ class PlacemarkActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-
-    private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
 
 
 
