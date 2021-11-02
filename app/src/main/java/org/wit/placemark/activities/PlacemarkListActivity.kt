@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import org.wit.placemark.R
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.wit.placemark.databinding.ActivityPlacemarkList2Binding
@@ -17,6 +19,7 @@ class PlacemarkListActivity : AppCompatActivity(), PlacemarkListener {
 
     lateinit var app: MainApp
     private lateinit var binding: ActivityPlacemarkList2Binding
+    private lateinit var refreshIntentLauncher : ActivityResultLauncher<Intent>
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,9 +33,11 @@ class PlacemarkListActivity : AppCompatActivity(), PlacemarkListener {
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
-        //binding.recyclerView.adapter = PlacemarkAdapter(app.placemarks)
+
         binding.recyclerView.adapter = PlacemarkAdapter(app.placemarks.findAll(),this)
+    registerRefreshCallback()
      }
+
         override fun onCreateOptionsMenu(menu: Menu): Boolean {
        menuInflater.inflate(R.menu.menu_main, menu)
         return super.onCreateOptionsMenu(menu)
@@ -41,7 +46,7 @@ class PlacemarkListActivity : AppCompatActivity(), PlacemarkListener {
         when (item.itemId) {
             R.id.item_add -> {
                 val launcherIntent = Intent(this, PlacemarkActivity::class.java)
-                startActivityForResult(launcherIntent,0)
+                refreshIntentLauncher.launch(launcherIntent)
             }
         }
         return super.onOptionsItemSelected(item)
@@ -50,43 +55,25 @@ class PlacemarkListActivity : AppCompatActivity(), PlacemarkListener {
     override fun onPlacemarkClick(placemark: PlacemarkModel) {
         val launcherIntent = Intent(this, PlacemarkActivity::class.java)
         launcherIntent.putExtra("placemark_edit", placemark)
-        startActivityForResult(launcherIntent,0)
+        refreshIntentLauncher.launch(launcherIntent)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        binding.recyclerView.adapter?.notifyDataSetChanged()
-        super.onActivityResult(requestCode, resultCode, data)
+    //override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    //    binding.recyclerView.adapter?.notifyDataSetChanged()
+    //    super.onActivityResult(requestCode, resultCode, data)
+   // }
+    private fun registerRefreshCallback() {
+        refreshIntentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { binding.recyclerView.adapter?.notifyDataSetChanged() }
     }
+
+
+
 }
 
 
-  //  class PlacemarkAdapter constructor(private var placemarks: List<PlacemarkModel>) :
-    //    RecyclerView.Adapter<PlacemarkAdapter.MainHolder>() {
-
-      //  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
-        //    val binding = CardPlacemarkBinding
-          //      .inflate(LayoutInflater.from(parent.context), parent, false)
-
-            //return MainHolder(binding)
-       // }
-
-      //  override fun onBindViewHolder(holder: MainHolder, position: Int) {
-      //      val placemark = placemarks[holder.adapterPosition]
-      //      holder.bind(placemark)
-      //  }
 
 
-        //override fun getItemCount(): Int = placemarks.size
-
-       // class MainHolder(private val binding : CardPlacemarkBinding) :
-         //   RecyclerView.ViewHolder(binding.root) {
-
-           // fun bind(placemark: PlacemarkModel) {
-             //   binding.placemarkTitle.text = placemark.title
-             //  binding.description.text = placemark.description
-            //}
-        //}
-
-    //}
 
 

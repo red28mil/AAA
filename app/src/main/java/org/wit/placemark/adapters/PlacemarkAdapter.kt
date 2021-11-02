@@ -3,8 +3,9 @@ package org.wit.placemark.models
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import org.wit.placemark.databinding.CardPlacemarkBinding
-
+import org.wit.placemark.models.PlacemarkModel
 
 interface PlacemarkListener {
     fun onPlacemarkClick(placemark: PlacemarkModel)
@@ -34,6 +35,7 @@ class PlacemarkAdapter constructor(private var placemarks: List<PlacemarkModel>,
         fun bind(placemark: PlacemarkModel, listener: PlacemarkListener) {
             binding.placemarkTitle.text = placemark.title
             binding.description.text = placemark.description
+            //Picasso.get().load(placemark.image).resize(200,200).into(binding.imageIcon)
             binding.root.setOnClickListener { listener.onPlacemarkClick(placemark) }
         }
     }

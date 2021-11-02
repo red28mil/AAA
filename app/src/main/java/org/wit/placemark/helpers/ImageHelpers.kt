@@ -1,4 +1,3 @@
-
 package org.wit.placemark.helpers
 
 import android.content.Intent
