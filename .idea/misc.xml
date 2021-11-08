@@ -6,14 +6,16 @@
         <entry key="..\:/Users/maeli/Downloads/placemark-00/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2046875" />
         <entry key="..\:/Users/maeli/Downloads/placemark-00/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="..\:/Users/maeli/Downloads/placemark-00/app/src/main/res/layout/activity_map.xml" value="0.1" />
+        <entry key="..\:/Users/maeli/Downloads/placemark-00/app/src/main/res/layout/activity_pitchlocate.xml" value="0.7056451612903226" />
         <entry key="..\:/Users/maeli/Downloads/placemark-00/app/src/main/res/layout/activity_pitchlocate_list2.xml" value="0.18854166666666666" />
         <entry key="..\:/Users/maeli/Downloads/placemark-00/app/src/main/res/layout/activity_placemark.xml" value="0.1" />
         <entry key="..\:/Users/maeli/Downloads/placemark-00/app/src/main/res/layout/activity_placemark_list2.xml" value="0.1" />
         <entry key="..\:/Users/maeli/Downloads/placemark-00/app/src/main/res/layout/card_pitchlocate.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/maeli/Downloads/placemark-00/app/src/main/res/layout/card_placemark.xml" value="0.1" />
-        <entry key="..\:/Users/maeli/Downloads/placemark-00/app/src/main/res/menu/menu_main.xml" value="0.25" />
+        <entry key="..\:/Users/maeli/Downloads/placemark-00/app/src/main/res/menu/menu_main.xml" value="0.2" />
         <entry key="..\:/Users/maeli/Downloads/placemark-00/app/src/main/res/menu/menu_pitchlocate.xml" value="0.22" />
         <entry key="..\:/Users/maeli/Downloads/placemark-00/app/src/main/res/menu/menu_placemark.xml" value="0.12395833333333334" />
+        <entry key="..\:/Users/maeli/Downloads/placemark-00/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1171875" />
         <entry key="..\:/Users/maeli/Downloads/placemark-00/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2046875" />
       </map>
     </option>

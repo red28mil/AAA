@@ -46,7 +46,7 @@ class PitchlocateActivity : AppCompatActivity() {
 
         if (intent.hasExtra("pitchlocate_edit")) {
             edit = true
-            pitchlocate = intent.extras?.getParcelable("placemark_edit")!!
+            pitchlocate = intent.extras?.getParcelable("pitchlocate_edit")!!
             binding.pitchlocateTitle.setText(pitchlocate.title)
             // binding.description.setText(placemark.description)
             binding.btnAdd.setText(R.string.save_pitchlocate)
