@@ -1,11 +1,11 @@
-package org.wit.placemark.models
+package org.wit.pitchlocate.models
 
 import android.net.Uri
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class PlacemarkModel(
+data class PitchlocateModel(
     var id: Long = 0,
     var title: String = "",
     var description: String = "",

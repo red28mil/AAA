@@ -1,4 +1,4 @@
-package org.wit.placemark.activities
+package org.wit.pitchlocate.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,30 +7,26 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.model.Marker
 import com.google.android.material.snackbar.Snackbar
-import com.squareup.picasso.MemoryPolicy
 import com.squareup.picasso.Picasso
-import org.wit.placemark.R
-import org.wit.placemark.databinding.ActivityPlacemarkBinding
-//import org.wit.placemark.showImagePicker
-import org.wit.placemark.main.MainApp
-import org.wit.placemark.models.Location
-import org.wit.placemark.models.PlacemarkModel
+import org.wit.pitchlocate.R
+//import org.wit.pitchlocate.showImagePicker
+import org.wit.pitchlocate.main.MainApp
+import org.wit.pitchlocate.models.Location
+import org.wit.pitchlocate.models.PitchlocateModel
 import android.net.Uri
-import org.wit.placemark.helpers.showImagePicker
-import timber.log.Timber
+import org.wit.pitchlocate.databinding.ActivityPitchlocateBinding
+import org.wit.pitchlocate.helpers.showImagePicker
 import timber.log.Timber.i
 
-class PlacemarkActivity : AppCompatActivity() {
+class PitchlocateActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityPlacemarkBinding
-    var placemark = PlacemarkModel()
+    private lateinit var binding: ActivityPitchlocateBinding
+    var pitchlocate = PitchlocateModel()
     lateinit var app: MainApp
     private lateinit var imageIntentLauncher: ActivityResultLauncher<Intent>
     private lateinit var mapIntentLauncher: ActivityResultLauncher<Intent>
-    var location = Location(52.245696, -7.139102, 15f)
+   var location = Location(-34.0, 151.0, 10f)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +34,7 @@ class PlacemarkActivity : AppCompatActivity() {
 
 
 
-        binding = ActivityPlacemarkBinding.inflate(layoutInflater)
+        binding = ActivityPitchlocateBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.toolbarAdd.title = title
         setSupportActionBar(binding.toolbarAdd)
@@ -46,37 +42,37 @@ class PlacemarkActivity : AppCompatActivity() {
 
         app = application as MainApp
 
-        i("Placemark Activity started...")
+        i("Pitchlocate Activity started...")
 
-        if (intent.hasExtra("placemark_edit")) {
+        if (intent.hasExtra("pitchlocate_edit")) {
             edit = true
-            placemark = intent.extras?.getParcelable("placemark_edit")!!
-            binding.placemarkTitle.setText(placemark.title)
+            pitchlocate = intent.extras?.getParcelable("placemark_edit")!!
+            binding.pitchlocateTitle.setText(pitchlocate.title)
             // binding.description.setText(placemark.description)
-            binding.btnAdd.setText(R.string.save_placemark)
+            binding.btnAdd.setText(R.string.save_pitchlocate)
             Picasso.get()
-                .load(placemark.image)
-                .into(binding.placemarkImage)
-            if (placemark.image != Uri.EMPTY) {
-                binding.chooseImage.setText(R.string.change_placemark_image)
+                .load(pitchlocate.image)
+                .into(binding.pitchlocateImage)
+            if (pitchlocate.image != Uri.EMPTY) {
+                binding.chooseImage.setText(R.string.change_pitchlocate_image)
             }
         }
 
         binding.btnAdd.setOnClickListener() {
-            placemark.title = binding.placemarkTitle.text.toString()
+            pitchlocate.title = binding.pitchlocateTitle.text.toString()
             // placemark.description = binding.description.text.toString()
-            if (placemark.title.isEmpty()) {
+            if (pitchlocate.title.isEmpty()) {
                 Snackbar
-                    .make(it,"enter_placemark_title", Snackbar.LENGTH_LONG)
+                    .make(it,"enter_pitchlocate_title", Snackbar.LENGTH_LONG)
                     .show()
             } else {
                 if (edit) {
-                    app.placemarks.update(placemark.copy())
+                    app.pitchlocates.update(pitchlocate.copy())
                 } else {
-                    app.placemarks.create(placemark.copy())
+                    app.pitchlocates.create(pitchlocate.copy())
                 }
             }
-            i("add Button Pressed: $placemark")
+            i("add Button Pressed: $pitchlocate")
             setResult(RESULT_OK)
             finish()
         }
@@ -84,7 +80,7 @@ class PlacemarkActivity : AppCompatActivity() {
         binding.chooseImage.setOnClickListener {
             showImagePicker(imageIntentLauncher)
         }
-        binding.placemarkLocation.setOnClickListener {
+        binding.pitchlocateLocation.setOnClickListener {
             val launcherIntent = Intent(this, MapActivity::class.java)
                 .putExtra("location", location)
             mapIntentLauncher.launch(launcherIntent)
@@ -95,7 +91,7 @@ class PlacemarkActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_placemark, menu)
+        menuInflater.inflate(R.menu.menu_pitchlocate, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -117,10 +113,10 @@ class PlacemarkActivity : AppCompatActivity() {
                     RESULT_OK -> {
                         if (result.data != null) {
                             i("Got Result ${result.data!!.data}")
-                            placemark.image = result.data!!.data!!
+                            pitchlocate.image = result.data!!.data!!
                             Picasso.get()
-                                .load(placemark.image)
-                                .into(binding.placemarkImage)
+                                .load(pitchlocate.image)
+                                .into(binding.pitchlocateImage)
                         } // end of if
                     }
                     RESULT_CANCELED -> { } else -> { }

@@ -1,30 +1,30 @@
-package org.wit.placemark.activities
+package org.wit.pitchlocate.activities
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import org.wit.placemark.R
+import org.wit.pitchlocate.R
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import org.wit.placemark.databinding.ActivityPlacemarkList2Binding
-import org.wit.placemark.main.MainApp
-import org.wit.placemark.models.PlacemarkAdapter
-import org.wit.placemark.models.PlacemarkListener
-import org.wit.placemark.models.PlacemarkModel
+import org.wit.pitchlocate.databinding.ActivityPitchlocateList2Binding
+import org.wit.pitchlocate.main.MainApp
+import org.wit.pitchlocate.models.PitchlocateAdapter
+import org.wit.pitchlocate.models.PitchlocateListener
+import org.wit.pitchlocate.models.PitchlocateModel
 
-class PlacemarkListActivity : AppCompatActivity(), PlacemarkListener {
+class PitchlocateListActivity : AppCompatActivity(), PitchlocateListener {
 
     lateinit var app: MainApp
-    private lateinit var binding: ActivityPlacemarkList2Binding
+    private lateinit var binding: ActivityPitchlocateList2Binding
     private lateinit var refreshIntentLauncher : ActivityResultLauncher<Intent>
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityPlacemarkList2Binding.inflate(layoutInflater)
+        binding = ActivityPitchlocateList2Binding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.toolbar.title = title
         setSupportActionBar(binding.toolbar)
@@ -34,7 +34,7 @@ class PlacemarkListActivity : AppCompatActivity(), PlacemarkListener {
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
 
-        binding.recyclerView.adapter = PlacemarkAdapter(app.placemarks.findAll(),this)
+        binding.recyclerView.adapter = PitchlocateAdapter(app.pitchlocates.findAll(),this)
     registerRefreshCallback()
      }
 
@@ -45,16 +45,16 @@ class PlacemarkListActivity : AppCompatActivity(), PlacemarkListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.item_add -> {
-                val launcherIntent = Intent(this, PlacemarkActivity::class.java)
+                val launcherIntent = Intent(this, PitchlocateActivity::class.java)
                 refreshIntentLauncher.launch(launcherIntent)
             }
         }
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onPlacemarkClick(placemark: PlacemarkModel) {
-        val launcherIntent = Intent(this, PlacemarkActivity::class.java)
-        launcherIntent.putExtra("placemark_edit", placemark)
+    override fun onPitchlocateClick(pitchlocate: PitchlocateModel) {
+        val launcherIntent = Intent(this, PitchlocateActivity::class.java)
+        launcherIntent.putExtra("pitchlocate_edit", pitchlocate)
         refreshIntentLauncher.launch(launcherIntent)
     }
 

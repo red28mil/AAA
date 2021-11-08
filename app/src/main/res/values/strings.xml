@@ -1,18 +1,18 @@
 <resources>
 
-    <string name="app_name">placemark</string>
-    <string name="button_addPlacemark">Add Placemark</string>
-    <string name="hint_placemarkTitle">Placemark Title</string>
-    <string name="hint_placemarkDescription">Description</string>
-    <string name="menu_addPlacemark">Add</string>
-    <string name="menu_cancelPlacemark">Cancel</string>
-    <string name="enter_placemark_title"> Please enter a Placemark Title </string>
+    <string name="app_name">pitchlocate</string>
+    <string name="button_addPitchlocate">Add Pitchlocate</string>
+    <string name="hint_pitchlocateTitle">Pitchlocate Title</string>
+    <string name="hint_pitchlocateDescription">Description</string>
+    <string name="menu_addPitchlocate">Add</string>
+    <string name="menu_cancelPitchlocate">Cancel</string>
+    <string name="enter_pitchlocate_title"> Please enter a Pitchlocate Title </string>
     <string name="button_addImage"> Add Image </string>
-    <string name="save_placemark" > save</string>
-    <string name="select_placemark_image">Select placemark image</string>
+    <string name="save_pitchlocate" > save</string>
+    <string name="select_p_image">Select pitchlocate image</string>
     <string name="button_location">Set Location</string>
 
     <string name="title_activity_map">Map</string>
-    <string name="change_placemark_image"> change image </string>
+    <string name="change_pitchlocate_image"> change image </string>
 
 </resources>

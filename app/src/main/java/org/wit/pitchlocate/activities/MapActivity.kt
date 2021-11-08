@@ -1,4 +1,4 @@
-package org.wit.placemark.activities
+package org.wit.pitchlocate.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,13 +12,13 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
-import org.wit.placemark.R
+import org.wit.pitchlocate.R
 
-import org.wit.placemark.models.Location
+import org.wit.pitchlocate.models.Location
 
 
 class MapActivity : AppCompatActivity(), OnMapReadyCallback,
-    GoogleMap.OnMarkerDragListener {
+    GoogleMap.OnMarkerDragListener, GoogleMap.OnMarkerClickListener {
 
     private lateinit var map: GoogleMap
     var location = Location()
@@ -36,7 +36,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,
         map = googleMap
         val loc = LatLng(location.lat, location.lng)
         val options = MarkerOptions()
-            .title("Placemark")
+            .title("Pitchlocate")
             .snippet("GPS : $loc")
             .draggable(true)
             .position(loc)
@@ -56,7 +56,11 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,
         location.lng = marker.position.longitude
         location.zoom = map.cameraPosition.zoom
     }
-
+    override fun onMarkerClick(marker: Marker): Boolean {
+        val loc = LatLng(location.lat, location.lng)
+        marker.snippet = "GPS : $loc"
+        return false
+    }
     override fun onBackPressed() {
         val resultIntent = Intent()
         resultIntent.putExtra("location", location)
