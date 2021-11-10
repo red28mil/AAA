@@ -26,7 +26,7 @@ class PitchlocateActivity : AppCompatActivity() {
     lateinit var app: MainApp
     private lateinit var imageIntentLauncher: ActivityResultLauncher<Intent>
     private lateinit var mapIntentLauncher: ActivityResultLauncher<Intent>
-   var location = Location(-34.0, 151.0, 10f)
+   var location = Location(52.245696, -7.139102, 16f)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +48,7 @@ class PitchlocateActivity : AppCompatActivity() {
             edit = true
             pitchlocate = intent.extras?.getParcelable("pitchlocate_edit")!!
             binding.pitchlocateTitle.setText(pitchlocate.title)
-            // binding.description.setText(placemark.description)
+            // binding.description.setText(pitchlocate.description)
             binding.btnAdd.setText(R.string.save_pitchlocate)
             Picasso.get()
                 .load(pitchlocate.image)

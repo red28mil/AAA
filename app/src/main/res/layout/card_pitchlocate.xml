@@ -9,7 +9,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="149dp"
         android:padding="16dp">
 
         <TextView
@@ -26,6 +26,16 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/pitchlocateTitle"
             tools:text="A Description" />
-
     </RelativeLayout>
+        <com.google.android.material.bottomappbar.BottomAppBar
+            android:id="@+id/bottomAppBar2"
+            style="@style/Widget.MaterialComponents.BottomAppBar.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom" />
+
+
+
+
+
 </androidx.cardview.widget.CardView>

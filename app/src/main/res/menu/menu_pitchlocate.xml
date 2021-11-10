@@ -5,5 +5,6 @@
     <item
         android:id="@+id/item_cancel"
         android:title="@string/menu_cancelPitchlocate"
-        app:showAsAction="always"/>
+        app:showAsAction="always"
+        android:background="@color/simplebackgroundcolor"/>
 </menu>
